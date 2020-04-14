@@ -9,10 +9,13 @@ data:
 ---
 
 apiVersion: apps/v1beta2
-kind: Deployment
+kind: ReplicaSet
 metadata:
   name: spinnaker-demo
   namespace: default
+  annotations:
+    strategy.spinnaker.io/max-version-history: '2'
+    traffic.spinnaker.io/load-balancers: '["service spinnaker-demo"]'
   labels:
     source: demo
     stack: frontend

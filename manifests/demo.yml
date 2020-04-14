@@ -2,20 +2,17 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: spinnaker-demo-config
-  namespace: default
+  namespace: '${ parameters.namespace }'
 data:
   NEW_FEATURE: "false"
 
 ---
 
 apiVersion: apps/v1beta2
-kind: ReplicaSet
+kind: Deployment
 metadata:
   name: spinnaker-demo
-  namespace: default
-  annotations:
-    strategy.spinnaker.io/max-version-history: '2'
-    traffic.spinnaker.io/load-balancers: '["service spinnaker-demo"]'
+  namespace: '${ parameters.namespace }'
   labels:
     source: demo
     stack: frontend
@@ -51,7 +48,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: spinnaker-demo
-  namespace: default
+  namespace: '${ parameters.namespace }'
 spec:
   selector:
     source: demo

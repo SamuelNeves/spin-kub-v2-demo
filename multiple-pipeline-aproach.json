@@ -1,0 +1,268 @@
+[
+    {
+     "application": "sample",
+     "expectedArtifacts": [
+      {
+       "defaultArtifact": {
+        "artifactAccount": "new-github-account",
+        "id": "da2c90d1-f96d-49dd-9750-96750b63d54f",
+        "name": "manifests/demo.yml",
+        "reference": "https://api.github.com/repos/SamuelNeves/spin-kub-v2-demo/contents/manifests/demo.yml",
+        "type": "github/file",
+        "version": "master"
+       },
+       "displayName": "github-atifact",
+       "id": "0d37777a-a58e-4d8d-9451-276086b59b76",
+       "matchArtifact": {
+        "artifactAccount": "new-github-account",
+        "id": "55db6b7d-b364-490b-848f-8651df7ba2a0",
+        "name": "manifests/demo.yml",
+        "type": "github/file"
+       },
+       "useDefaultArtifact": true,
+       "usePriorArtifact": false
+      },
+      {
+       "defaultArtifact": {
+        "artifactAccount": "docker-registry",
+        "id": "c6e1884e-289b-4e2a-8adc-4471254a9f9d",
+        "name": "index.docker.io/samuelneves/spin-kub-v2-demo",
+        "reference": "index.docker.io/samuelneves/spin-kub-v2-demo",
+        "type": "docker/image",
+        "version": "//35.244.248.157/gate"
+       },
+       "displayName": "docker-artifact",
+       "id": "6b0f5ccb-1eff-4385-8516-0bbea11d14ca",
+       "matchArtifact": {
+        "artifactAccount": "docker-registry",
+        "id": "b7f6052f-f900-473c-a6c3-a897daafd15f",
+        "name": "index.docker.io/samuelneves/spin-kub-v2-demo",
+        "type": "docker/image"
+       },
+       "useDefaultArtifact": true,
+       "usePriorArtifact": false
+      }
+     ],
+     "id": "7bb68eff-55f8-4cf1-be4f-e9d9c7742fd4",
+     "index": 0,
+     "keepWaitingPipelines": false,
+     "lastModifiedBy": "samuel.neves@live.com",
+     "limitConcurrent": true,
+     "name": "Deploy Stage",
+     "parameterConfig": [
+      {
+       "default": "staging",
+       "description": "The namepace",
+       "hasOptions": false,
+       "label": "namespace",
+       "name": "namespace",
+       "options": [
+        {
+         "value": ""
+        }
+       ],
+       "pinned": true,
+       "required": true
+      }
+     ],
+     "spelEvaluator": "v4",
+     "stages": [
+      {
+       "account": "spinnaker-install-account",
+       "cloudProvider": "kubernetes",
+       "manifestArtifactAccount": "new-github-account",
+       "manifestArtifactId": "0d37777a-a58e-4d8d-9451-276086b59b76",
+       "moniker": {
+        "app": "sample"
+       },
+       "name": "Deploy",
+       "refId": "1",
+       "requiredArtifactIds": [],
+       "requiredArtifacts": [],
+       "requisiteStageRefIds": [],
+       "sendNotifications": false,
+       "skipExpressionEvaluation": false,
+       "source": "artifact",
+       "trafficManagement": {
+        "enabled": true,
+        "options": {
+         "enableTraffic": true,
+         "namespace": "staging",
+         "services": [
+          "service spinnaker-demo"
+         ],
+         "strategy": "highlander"
+        }
+       },
+       "type": "deployManifest"
+      }
+     ],
+     "triggers": [
+      {
+       "branch": "master",
+       "enabled": true,
+       "expectedArtifactIds": [
+        "0d37777a-a58e-4d8d-9451-276086b59b76"
+       ],
+       "project": "SamuelNeves",
+       "secret": "",
+       "slug": "spin-kub-v2-demo",
+       "source": "github",
+       "type": "git"
+      },
+      {
+       "enabled": true,
+       "expectedArtifactIds": [
+        "6b0f5ccb-1eff-4385-8516-0bbea11d14ca"
+       ],
+       "source": "dockerhub",
+       "type": "webhook"
+      }
+     ],
+     "updateTs": "1586959646881"
+    },
+    {
+     "application": "sample",
+     "expectedArtifacts": [],
+     "id": "b28cc7b9-3e94-472a-a4d8-aa6bba1dcca2",
+     "index": 1,
+     "keepWaitingPipelines": false,
+     "lastModifiedBy": "samuel.neves@live.com",
+     "limitConcurrent": true,
+     "name": "Validate Staging",
+     "spelEvaluator": "v4",
+     "stages": [
+      {
+       "failPipeline": true,
+       "instructions": "Please validate is the cluster is running ok.",
+       "judgmentInputs": [],
+       "name": "Manual Judgment",
+       "notifications": [],
+       "refId": "1",
+       "requisiteStageRefIds": [],
+       "type": "manualJudgment"
+      }
+     ],
+     "triggers": [
+      {
+       "application": "sample",
+       "enabled": true,
+       "pipeline": "7bb68eff-55f8-4cf1-be4f-e9d9c7742fd4",
+       "status": [
+        "successful"
+       ],
+       "type": "pipeline"
+      }
+     ],
+     "updateTs": "1586889142220"
+    },
+    {
+     "application": "sample",
+     "expectedArtifacts": [
+      {
+       "defaultArtifact": {
+        "artifactAccount": "new-github-account",
+        "id": "da2c90d1-f96d-49dd-9750-96750b63d54f",
+        "name": "manifests/demo.yml",
+        "reference": "https://api.github.com/repos/SamuelNeves/spin-kub-v2-demo/contents/manifests/demo.yml",
+        "type": "github/file",
+        "version": "master"
+       },
+       "displayName": "github-atifact",
+       "id": "0d37777a-a58e-4d8d-9451-276086b59b76",
+       "matchArtifact": {
+        "artifactAccount": "new-github-account",
+        "id": "55db6b7d-b364-490b-848f-8651df7ba2a0",
+        "name": "manifests/demo.yml",
+        "type": "github/file"
+       },
+       "useDefaultArtifact": true,
+       "usePriorArtifact": false
+      },
+      {
+       "defaultArtifact": {
+        "customKind": true,
+        "id": "a9030d86-9415-4c52-99d4-a54d329ac0bb"
+       },
+       "displayName": "docker-artifact",
+       "id": "6b0f5ccb-1eff-4385-8516-0bbea11d14ca",
+       "matchArtifact": {
+        "artifactAccount": "docker-registry",
+        "id": "b7f6052f-f900-473c-a6c3-a897daafd15f",
+        "name": "index.docker.io/samuelneves/spin-kub-v2-demo",
+        "type": "docker/image"
+       },
+       "useDefaultArtifact": false,
+       "usePriorArtifact": false
+      }
+     ],
+     "id": "2f4439da-4aa8-4924-8cb7-6f392b68ffcb",
+     "index": 2,
+     "keepWaitingPipelines": false,
+     "lastModifiedBy": "samuel.neves@live.com",
+     "limitConcurrent": true,
+     "name": "Deploy to Prod",
+     "parameterConfig": [
+      {
+       "default": "production",
+       "description": "",
+       "hasOptions": false,
+       "label": "namespace",
+       "name": "namespace",
+       "options": [
+        {
+         "value": ""
+        }
+       ],
+       "pinned": true,
+       "required": false
+      }
+     ],
+     "spelEvaluator": "v4",
+     "stages": [
+      {
+       "account": "spinnaker-install-account",
+       "cloudProvider": "kubernetes",
+       "manifestArtifactAccount": "new-github-account",
+       "manifestArtifactId": "0d37777a-a58e-4d8d-9451-276086b59b76",
+       "moniker": {
+        "app": "sample"
+       },
+       "name": "Deploy",
+       "namespaceOverride": "",
+       "refId": "1",
+       "requiredArtifactIds": [],
+       "requiredArtifacts": [],
+       "requisiteStageRefIds": [],
+       "sendNotifications": false,
+       "skipExpressionEvaluation": false,
+       "source": "artifact",
+       "trafficManagement": {
+        "enabled": true,
+        "options": {
+         "enableTraffic": true,
+         "namespace": "production",
+         "services": [
+          "service spinnaker-demo"
+         ],
+         "strategy": "redblack"
+        }
+       },
+       "type": "deployManifest"
+      }
+     ],
+     "triggers": [
+      {
+       "application": "sample",
+       "enabled": true,
+       "pipeline": "b28cc7b9-3e94-472a-a4d8-aa6bba1dcca2",
+       "status": [
+        "successful"
+       ],
+       "type": "pipeline"
+      }
+     ],
+     "updateTs": "1586959675730"
+    }
+   ]
+   

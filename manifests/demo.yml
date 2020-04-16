@@ -19,6 +19,11 @@ metadata:
     app: spinnaker
 spec:
   replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # how many pods we can add at a time
+      maxUnavailable: 0 
   selector:
     matchLabels:
       source: demo
